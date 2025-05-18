@@ -11,7 +11,7 @@ public class TileArchetype(params TileProperty[] props)
 {
     readonly HashSet<TileProperty> properties = [ ..props ];
 
-    public bool HasProp(TileProperty property)
+    public bool HasProperty(TileProperty property)
         => properties.Contains(property);
 
     /// <summary>

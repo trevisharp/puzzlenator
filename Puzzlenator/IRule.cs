@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 namespace Puzzlenator;
 
+using Rules;
+
 /// <summary>
 /// Represents a mobility game rule.
 /// </summary>
@@ -33,4 +35,8 @@ public interface IRule
         Stage stage,
         Tile currentTile
     );
+
+    public static readonly GravityRule Gravity = new();
+    public static readonly MoveLeftRule Left = new();
+    public static readonly MoveRightRule Right = new();
 }

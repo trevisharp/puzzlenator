@@ -6,7 +6,7 @@ namespace Puzzlenator;
 /// <summary>
 /// Represents a legal game move.
 /// </summary>
-public class Move
+public readonly struct Move
 {
     static readonly HashSet<string> moves = [];
 
