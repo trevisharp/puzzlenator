@@ -4,5 +4,5 @@ namespace Puzzlenator.Tiles;
 /// Represents a simple path tile archetype.
 /// </summary>
 public class PathArchetype() : TileArchetype(
-    TileProperty.Get("PATH")
+    TileProperty.Path
 );

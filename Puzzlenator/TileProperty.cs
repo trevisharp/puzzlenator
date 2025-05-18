@@ -49,4 +49,8 @@ public readonly struct TileProperty
 
     public static bool operator !=(TileProperty left, TileProperty right)
         => !left.Equals(right);
+
+    public static readonly TileProperty Path = Get("PATH");
+    public static readonly TileProperty Wall = Get("WALL"); 
+    public static readonly TileProperty Goal = Get("GOAL"); 
 }
