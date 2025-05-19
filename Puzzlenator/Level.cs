@@ -8,7 +8,9 @@ namespace Puzzlenator;
 /// </summary>
 public record Level(
     Stage Stage,
-    IEnumerable<IRule> Rules,
+    RuleSet Rules,
+    IEnumerable<IPower> Powers,
+    IEnumerable<IPortal> Portals,
     int PlayerStartX,
     int PLayerStartY
 )
@@ -22,9 +24,10 @@ public record Level(
 
     static Level? level1 = null;
     static Level Level1 =>
-        level1 ??=  new(
-        Stage.CreateRounded(3, TileArchetype.Path, TileArchetype.Path, TileArchetype.Goal),
-        [ IRule.Left, IRule.Right, IRule.Gravity ],
-        1, 1
-    );
+        level1 ??= new(
+            Stage.CreateRounded(3, TileArchetype.Path, TileArchetype.Path, TileArchetype.Goal),
+            [ IRule.Left, IRule.Right, IRule.Gravity ],
+            [], [],
+            1, 1
+        );
 }

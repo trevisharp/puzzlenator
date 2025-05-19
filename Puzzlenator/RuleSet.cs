@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Puzzlenator;
 
@@ -7,7 +8,7 @@ namespace Puzzlenator;
 /// Represent a set of rules.
 /// If a rule are added twice, needs be removed twice.
 /// </summary>
-public class RuleSet
+public class RuleSet : IEnumerable<IRule>
 {
     class RuleItem(IRule rule)
     {
@@ -62,4 +63,10 @@ public class RuleSet
     /// </summary>
     public bool Contains(IRule rule)
         => rules.ContainsKey(rule.GetType().Name);
+
+    public IEnumerator<IRule> GetEnumerator()
+        => Rules.GetEnumerator();
+
+    IEnumerator IEnumerable.GetEnumerator()
+        => GetEnumerator();
 }
