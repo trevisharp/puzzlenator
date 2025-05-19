@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Puzzlenator.Rules;
 
 /// <summary>
@@ -7,37 +5,20 @@ namespace Puzzlenator.Rules;
 /// </summary>
 public class MoveRightRule : IRule
 {
-    public bool CanHandle(Stage stage, Tile currentTile, Move move)
+    public LegalMove? GetLegalMove(Stage stage, Tile currentTile)
     {
-        if (move != Move.Right)
-            return false;
-        
-        int x = currentTile.X, 
+        int x = currentTile.X,
             y = currentTile.Y;
         
+        var under = stage[x, y + 1];
         var right = stage[x + 1, y];
-        if (right is null)
-            return false;
-        
-        if (right.Archetype.HasProperty(TileProperty.Wall))
-            return false;
-        
-        return true;
-    }
 
-    public Tile Handle(Stage stage, Tile currentTile, Move move)
-    {
-        int x = currentTile.X, 
-            y = currentTile.Y;
-        
-        return stage[x + 1, y]!;
-    }
+        if (right is null || right.Archetype.HasProperty(TileProperty.Wall))
+            return null;
 
-    public IEnumerable<(Move move, Tile tile)> GetNeighbors(Stage stage, Tile currentTile)
-    {
-        if (!CanHandle(stage, currentTile, Move.Left))
-            yield break;
+        if (under is not null && !under.Archetype.HasProperty(TileProperty.Wall))
+            return null;
         
-        yield return (Move.Left, Handle(stage, currentTile, Move.Left));
+        return new LegalMove(right, [ Move.Left ]);
     }
 }

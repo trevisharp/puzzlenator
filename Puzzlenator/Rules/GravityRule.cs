@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Puzzlenator.Rules;
 
 /// <summary>
@@ -7,34 +5,18 @@ namespace Puzzlenator.Rules;
 /// </summary>
 public class GravityRule : IRule
 {
-    public bool CanHandle(Stage stage, Tile currentTile, Move move)
+    public LegalMove? GetLegalMove(Stage stage, Tile currentTile)
     {
         int x = currentTile.X,
             y = currentTile.Y;
         
         var under = stage[x, y + 1];
         if (under is null)
-            return false;
+            return null;
         
         if (under.Archetype.HasProperty(TileProperty.Wall))
-            return false;
+            return null;
         
-        return true;
-    }
-
-    public Tile Handle(Stage stage, Tile currentTile, Move move)
-    {
-        int x = currentTile.X, 
-            y = currentTile.Y;
-        
-        return stage[x, y + 1]!;
-    }
-
-    public IEnumerable<(Move move, Tile tile)> GetNeighbors(Stage stage, Tile currentTile)
-    {
-        if (!CanHandle(stage, currentTile, Move.None))
-            yield break;
-        
-        yield return (Move.None, Handle(stage, currentTile, Move.None));
+        return new LegalMove(under, [ Move.Left, Move.Right, Move.None ]);
     }
 }
